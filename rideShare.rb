@@ -4,10 +4,10 @@ def usd(float_var)
     return format("$%.2f", float_var)
 end
 
-def find_best_drivers(metric, master_hash)
+def find_best_driver(metric, master_hash)
     # given the metric symbol and the master_hash, 
     # return the [winner's driver_id, winner's value]
-    # ex: find_best_drivers(avg_rating, master_hash) returns ['DR0004', 4.67]
+    # ex: find_best_driver(avg_rating, master_hash) returns ['DR0004', 4.67]
 
     summary = master_hash.map do |driver_id, driver_hash|
         [driver_id, driver_hash[metric]]
@@ -142,11 +142,11 @@ master_hash.each do |driver_id, hash|
 end
 
 puts "\n\nWhich driver made the most money?".upcase
-winner_hash = find_best_drivers(:total_money, master_hash)
+winner_hash = find_best_driver(:total_money, master_hash)
 puts "Winner is #{winner_hash[0].to_s}, they earned #{usd(winner_hash[1])}"
 
 puts "\n\nWhich driver has the highest average rating?".upcase
-winner_hash = find_best_drivers(:avg_rating, master_hash)
+winner_hash = find_best_driver(:avg_rating, master_hash)
 puts "Winner is #{winner_hash[0].to_s}, they earned a rating of #{winner_hash[1].round(2)}"
 
 puts
