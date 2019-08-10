@@ -11,7 +11,6 @@ def print_number_rides(my_hash)
   end
 end
 
-
 def get_drivers_earnings(my_hash)
   drivers_earnings = {}
   
