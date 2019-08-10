@@ -1,34 +1,124 @@
-########################################################
-# Step 1: Establish the layers
+ride_share = {
+  DR0001: [
+    {
+      date: "3rd Feb 2016",
+      rider: "RD0003",
+      cost: 10,
+      rating: 3
+    },  
+    {
+      date: "3rd Feb 2016",
+      rider: "RD0015",
+      cost: 30,
+      rating: 4
+    },   
+    {
+      date: "5th Feb 2016",
+      rider: "RD0003",
+      cost: 45,
+      rating: 2
+    }    
+  ],   
+  DR0002: [
+    {
+      date: "3rd Feb 2016",
+      rider: "RD0073",
+      cost: 25,
+      rating: 5
+    }, 
+    {
+      date: "4th Feb 2016",
+      rider: "RD0013",
+      cost: 15,
+      rating: 1
+    },  
+    {
+      date: "5th Feb 2016",
+      rider: "RD0066",
+      cost: 35,
+      rating: 3
+    }
+  ],     
+  DR0003: [
+    {
+      date: "4th Feb 2016",
+      rider: "RD0066",
+      cost: 5,
+      rating: 5
+    },
+    {
+      date: "5th Feb 2016",
+      rider: "RD0003",
+      cost: 50,
+      rating: 2
+    }
+  ],
+  DR0004: [
+    {
+      date: "3rd Feb 2016",
+      rider: "RD0022",
+      cost: 5,
+      rating: 5
+    }, 
+    {
+      date: "4th Feb 2016",
+      rider: "RD0022",
+      cost: 10,
+      rating: 4
+    },
+    {
+      date: "5th Feb 2016",
+      rider: "RD0073",
+      cost: 20,
+      rating: 5
+    }
+  ]
+}
 
-# In this section of the file, as a series of comments,
-# create a list of the layers you identify.
-# Which layers are nested in each other?
-# Which layers of data "have" within it a different layer?
-# Which layers are "next" to each other?
+count = 1
+most_moolah = 0
+richest_driver = nil
+highest_average = 0
+best_driver = nil
 
-########################################################
-# Step 2: Assign a data structure to each layer
+ride_share.each do |key, value|
+  # Calculate total money made and most lucrative day 
+  total_moolah = 0
+  most_lucrative_date = nil
+  most_made_in_a_day = 0
+  value.each do |hash|
+    total_moolah += hash[:cost]
+    if hash[:cost] > most_made_in_a_day
+      most_made_in_a_day = hash[:cost]
+      most_lucrative_date = hash[:date]
+    end 
+  end
+  
+  # Calculate average rating
+  total_points = 0
+  value.each do |hash|
+    total_points += hash[:rating]
+  end
+  average = total_points / value.length.to_f
+  
+  # Output info for each driver
+  puts "Driver #{count} has given #{value.length} rides and earned an average rating of #{average}. 
+  They made $#{total_moolah} in total. Their most lucrative day was #{most_lucrative_date} on which they made $#{most_made_in_a_day}."
+  
+  # Determine which driver made the most money
+  if total_moolah > most_moolah
+    most_moolah = total_moolah
+    richest_driver = count
+  end
+  
+  # Determine which driver had the highest average rating
+  if average > highest_average
+    highest_average = average
+    best_driver = count 
+  end 
+  count += 1
+end 
 
-# Copy your list from above, and in this section
-# determine what data structure each layer should have
-
-########################################################
-# Step 3: Make the data structure!
-
-# Setup the entire data structure:
-# based off of the notes you have above, create the
-# and manually write in data presented in rides.csv
-# You should be copying and pasting the literal data
-# into this data structure, such as "DR0004"
-# and "3rd Feb 2016" and "RD0022"
-
-########################################################
-# Step 4: Total Driver's Earnings and Number of Rides
-
-# Use an iteration blocks to print the following answers:
-# - the number of rides each driver has given
-# - the total amount of money each driver has made
-# - the average rating for each driver
-# - Which driver made the most money?
-# - Which driver has the highest average rating?
+# Output overall stats info
+puts "The driver who made the most money is Driver #{richest_driver}!"
+puts "The driver with the highest average rating is Driver #{best_driver}!"
