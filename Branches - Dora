@@ -1,0 +1,126 @@
+# Create data structure for Driver_ID, Date, Cost, Rider_ID and rating
+drivers = {
+  DR0001: [
+    {
+      date: "3rd Feb 2016",
+      rider_ID: "RD0003",
+      cost: 10,
+      rating: 3,
+    },
+    {
+      date: "3rd Feb 2016",
+      rider_ID: "RD0015",
+      cost: 30,
+      rating: 4,
+    },
+    {
+      date: "5rd Feb 2016",
+      rider_ID: "RD0003",
+      cost: 45,
+      rating: 2,
+    }
+  ],
+  DR0002: [
+    {
+      date: "3rd Feb 2016",
+      rider_ID: "RD0073",
+      cost: 25,
+      rating: 5,
+    },
+    {
+      date: "3rd Feb 2016",
+      rider_ID: "RD0013",
+      cost: 15,
+      rating: 1,
+    },
+    {
+      date: "3rd Feb 2016",
+      rider_ID: "RD0066",
+      cost: 35,
+      rating: 3,
+    }
+  ],
+  DR0003: [
+    {
+      date: 20160204,
+      rider_ID: "RD0066",
+      cost: 5,
+      rating: 5,
+    },
+    {
+      date: 20160205,
+      rider_ID: "RD0003",
+      cost: 50,
+      rating: 2,
+    }
+  ],
+  DR0004: [
+    {
+      date: 20160203,
+      rider_ID: "RD0022",
+      cost: 5,
+      rating: 5,
+    },
+    {
+      date: 20160204,
+      rider_ID: "RD0022",
+      cost: 10,
+      rating: 4,
+    },
+    {
+      date: 20160205,
+      rider_ID: "RD0073",
+      cost: 20,
+      rating: 5,
+    }
+  ]
+}
+
+
+earnings = {}  # Hash to store driver as key and cost as values
+avg_rating = {}  # Has to store driver as key and average rating as value
+
+drivers.each do |driver, array|
+  # The number of rides each driver has given
+  puts "Driver #{driver} drove a total of #{array.count} rides."
+  earnings[driver] = []
+  avg_rating[driver] = []
+  array.each do |trip|
+    earnings[driver] << trip[:cost]
+    avg_rating[driver] << trip[:rating]
+  end
+end
+
+# The total amount of money each driver has made
+earnings.each do |driver, cost|
+  puts "Driver #{driver} earned total of: $#{cost.sum}"
+end
+
+# The average rating for each driver
+avg_rating.each do |driver, rating|
+  puts "Driver #{driver} has an average rating of: #{rating.sum/rating.size}"
+end
+
+# Find the driver that made the most money
+best_driver = nil
+money = 0
+earnings.each do |driver, array|
+  if array.sum > money
+    money = array.sum
+    best_driver = driver
+  end
+end
+puts "Driver #{best_driver} made the most money, earning a total of: $#{money}"
+
+# Find the driver who has the highest average rating
+
+highest_avg_driver = nil
+hightest_avg = 0
+avg_rating.each do |driver, rating|
+  avg_rate = (rating.sum/rating.size)
+  if avg_rate > hightest_avg
+    hightest_avg = avg_rate
+    highest_avg_driver = driver
+  end
+end
+puts "Driver #{highest_avg_driver} has the highest average rating of: #{hightest_avg}"
