@@ -271,7 +271,7 @@ all_driver_data = find_max_cost(all_driver_data)
 ## Output to Console
 
 # - the number of rides each driver has given
-message_to_user << "The number of rides each driver has given: \n"
+message_to_user << "The total number of rides each driver has given: \n"
 num_rides_per_driver = make_item_per_driver_message(all_driver_data, :rides)
 message_to_user << num_rides_per_driver
 
