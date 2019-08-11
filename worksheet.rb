@@ -124,7 +124,7 @@ def total_up_items(list, list_per_driver, item)
         end
       end
     end
-    
+
   end
   return list_per_driver
 end
@@ -142,7 +142,6 @@ def total_up_items_per_day(list, list_per_driver, item, item_per_day)
       if list_per_driver[driver][item_per_day][date] == nil
         list_per_driver[driver][item_per_day][date] = 0
       end
-      
       trips_subarray.each do |one_trip|
         list_per_driver[driver][item_per_day][date] += one_trip[item]
       end
@@ -224,9 +223,7 @@ def make_max_per_driver_message(all_data)
   item_per_driver = ""
   count_token = 0
   all_data.each_pair do |driver, data|
-    
     item_per_driver << "  #{driver} made"
-    
     data.each_pair do |data_name, data_value|
       if data_name == :max_cost_day
         data_value.each_pair do |date, max|
@@ -234,7 +231,6 @@ def make_max_per_driver_message(all_data)
         end
       end
     end
-    
   end
   return item_per_driver
 end
