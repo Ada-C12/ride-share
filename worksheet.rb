@@ -75,6 +75,20 @@ ride_share = {
   ]
 }
 
+# def find_most (array, key1, key2)
+#   total = 0
+#   most = nil 
+#   array.each do
+#     puts array[key1]
+#     puts array[key2]
+#     if [key1] > total
+#       total = [key1]
+#       most = [key2]
+#     end
+#   end 
+#   return [total, most] 
+# end 
+
 count = 1
 most_moolah = 0
 richest_driver = nil
@@ -82,28 +96,30 @@ highest_average = 0
 best_driver = nil
 
 ride_share.each do |key, value|
-  # Calculate total money made and most lucrative day 
-  total_moolah = 0
-  most_lucrative_date = nil
-  most_made_in_a_day = 0
-  value.each do |hash|
-    total_moolah += hash[:cost]
-    if hash[:cost] > most_made_in_a_day
-      most_made_in_a_day = hash[:cost]
-      most_lucrative_date = hash[:date]
-    end 
-  end
+  # Make cost array for calculating amount made by each driver
+  cost_array = value.map {|hash| hash[:cost]}
+  # Make rating array for alculating average rating for each driver
+  rating_array = value.map {|hash| hash[:rating]}
+  average_rating = rating_array.sum / value.length.to_f
+  # Add these 
+  value << {total_moolah: cost_array.sum, average_rating: average_rating} 
+  p ride_share 
   
-  # Calculate average rating
-  total_points = 0
-  value.each do |hash|
-    total_points += hash[:rating]
-  end
-  average = total_points / value.length.to_f
+  # Calculate most lucrative day 
+  
+  # #  most_lucrative_date = nil
+  # #  most_made_in_a_day = 0
+  
+  # most_lucrative_date = find_most(value, [:cost], [:date])[0]
+  # most_made_in_a_day = value[:cost]
+  # most_made_in_a_day = most_made_in_a_day.max
+  # puts most_made_in_a_day
+  # # ACCOUNT FOR DRIVERS W/ MULTIPLE RIDES ON ONE DAY
+  
   
   # Output info for each driver
-  puts "Driver #{count} has given #{value.length} rides and earned an average rating of #{average}. 
-  They made $#{total_moolah} in total. Their most lucrative day was #{most_lucrative_date} on which they made $#{most_made_in_a_day}."
+  puts "Driver #{count} has given #{value.length} rides and earned an average rating of #{average_rating}. 
+  They made $#{cost_array.sum} in total. Their most lucrative day was #{most_lucrative_date} on which they made $#{most_made_in_a_day}."
   
   # Determine which driver made the most money
   if total_moolah > most_moolah
@@ -122,3 +138,4 @@ end
 # Output overall stats info
 puts "The driver who made the most money is Driver #{richest_driver}!"
 puts "The driver with the highest average rating is Driver #{best_driver}!"
+puts ride_share
