@@ -1,5 +1,5 @@
 
-ride_data_by_driver= {
+ride_share = {
   DR0001: [
     {cost: 10, date: "3rd Feb 2016", rider_id: "RD0003", rating: 3}, 
     {cost: 45, date: "5th Feb 2016", rider_id: "RD0003", rating: 2}, 
@@ -20,54 +20,31 @@ ride_data_by_driver= {
     {cost: 10, date: "4th Feb 2016", rider_id: "RD0022", rating: 4}
   ]
 }
-cost = 0
 
+total_rating = 0
+max_cost = 0
+most_cost_driver = 0
+highest_rating = 0
+highest_rated_driver = 0
 
-ride_data_by_driver.each do |driver, ride|
-  puts "Driver ##{ driver } had #{ ride.length } rides."
-  cost = 0
-  rating = 0
+ride_share.each do |driver, ride|
+  total_cost = ride.sum { |each_ride| each_ride[:cost] }
+  total_rating = ride.sum { |each_ride| each_ride[:rating] }
+  puts "DRIVER ##{ driver } 
+  ** gave a total of #{ ride.length } rides **
+  ** made a total of $#{ total_cost } **
+  ** had an average rating of #{ total_rating/ride.length.to_f } **"
   
-  ride.each do |ride|
-    cost += ride[:cost]
-    rating += ride[:rating]
-  end
+  if total_cost > max_cost
+    max_cost = total_cost
+    most_cost_driver = driver
+  end 
   
-  average_rating = rating/ride.length.to_f
-  ride.push({:money_made => cost, :average_rating => average_rating})
-  
-  puts "Driver ##{ driver } made $#{ ride[-1][:money_made] }."
-  puts "Driver ##{ driver } had an average rating of #{ ride[-1][:average_rating] }"
-  puts "---------------------------------------"
-end
-
-def find_the_max_rating(hash)
-  highest_rating = 0
-  highest_rated_driver = ""
-  hash.each do |driver, rating|
-    if rating.last[:average_rating] > highest_rating
-      highest_rated_driver = driver
-      highest_rating = rating.last[:average_rating]
-    end
+  if total_rating > highest_rating
+    highest_rating = total_rating
+    highest_rated_driver = driver
   end
-  return highest_rated_driver
 end
-
-def find_the_max_money_made(hash)
-  most_money = 0
-  driver_with_most_money = ""
-  hash.each do |driver, rating|
-    if rating.last[:money_made] > most_money
-      driver_with_most_money = driver
-      most_money = rating.last[:money_made]
-    end
-  end
-  return driver_with_most_money
-end
-
-puts "** The highest rated driver was ##{ find_the_max_rating(ride_data_by_driver) }."
-puts "** The driver who made the most money was ##{ find_the_max_money_made(ride_data_by_driver) }."
-
-
-
-
+puts "-----------------------------------------"
+puts "Driver who made the most money : #{ most_cost_driver }
+Driver who had the highest average rating: #{ highest_rated_driver } "
