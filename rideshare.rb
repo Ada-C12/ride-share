@@ -21,7 +21,6 @@ ride_share = {
   ]
 }
 
-total_rating = 0
 max_cost = 0
 most_cost_driver = 0
 highest_rating = 0
