@@ -1,14 +1,14 @@
 # Comprehension Questions:
-# create a list of the layers you identify.
+# Create a list of the layers you identify.
 # -- drivers; rides: riders, date, cost, rating
 # Which layers are nested in each other?
 # -- riders, date, cost and rating are nested within rides; rides are nested within drivers
 # -- the above nesting is maximized for comparing drivers, but in other cases one could organize by rider or date
 # Which layers of data "have" within it a different layer?
-# -- drivers and rides
+# -- drivers (and rides); if organized differently, without drivers as the topmost layer, riders and date could have layers within them
 # Which layers are "next" to each other?
 # -- cost and rating both apply to specific rides, so are next to each other
-# -- for the purposes of this exercise, date and rider are also next to cost and rating
+# -- for the purposes of this exercise, date and rider are also next to cost and rating because I'm not prioritizing finding data among dates and riders
 
 ride_share = {
   DR0001: [
