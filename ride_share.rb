@@ -75,27 +75,27 @@ end
 
 ride_history = {
   DR001:
-  [ 
-    {date: "3rd Feb 2016", cost: 10, rider_id: "RD0003", rating: 3},
-    {date: "3rd Feb 2016", cost: 30, rider_id: "RD0015", rating: 4},
-    {date: "5th Feb 2016", cost: 45, rider_id: "RD0003", rating: 2} 
+  [
+    { date: "3rd Feb 2016", cost: 10, rider_id: "RD0003", rating: 3 },
+    { date: "3rd Feb 2016", cost: 30, rider_id: "RD0015", rating: 4 },
+    { date: "5th Feb 2016", cost: 45, rider_id: "RD0003", rating: 2 } 
   ],
   DR002:
-  [ 
-    {date: "3rd Feb 2016", cost: 25, rider_id: "RD0073", rating: 5},
-    {date: "4th Feb 2016", cost: 15, rider_id: "RD0013", rating: 1},
-    {date: "5th Feb 2016", cost: 35, rider_id: "RD0066", rating: 3} 
+  [
+    { date: "3rd Feb 2016", cost: 25, rider_id: "RD0073", rating: 5 },
+    { date: "4th Feb 2016", cost: 15, rider_id: "RD0013", rating: 1 },
+    { date: "5th Feb 2016", cost: 35, rider_id: "RD0066", rating: 3 } 
   ],
   DR003:
-  [ 
-    {date: "4th Feb 2016", cost: 5, rider_id: "RD0066", rating: 5},
-    {date: "5th Feb 2016", cost: 50, rider_id: "RD0003", rating: 2} 
+  [
+    { date: "4th Feb 2016", cost: 5, rider_id: "RD0066", rating: 5 },
+    { date: "5th Feb 2016", cost: 50, rider_id: "RD0003", rating: 2 } 
   ],
   DR004:
-  [ 
-    {date: "3rd Feb 2016", cost: 5, rider_id: "RD0022", rating: 5},
-    {date: "4th Feb 2016", cost: 10, rider_id: "RD0022", rating: 4},
-    {date: "5th Feb 2016", cost: 20, rider_id: "RD0073", rating: 5} 
+  [
+    { date: "3rd Feb 2016", cost: 5, rider_id: "RD0022", rating: 5 },
+    { date: "4th Feb 2016", cost: 10, rider_id: "RD0022", rating: 4 },
+    { date: "5th Feb 2016", cost: 20, rider_id: "RD0073", rating: 5 } 
   ]
 }
 
