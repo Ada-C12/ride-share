@@ -112,5 +112,3 @@ trip_data = totalEarnings(trip_data)
 trip_data = averageRating(trip_data)
 trip_data = highestEarner(trip_data)
 trip_data = highestRating(trip_data)
-
-puts trip_data
