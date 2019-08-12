@@ -1,0 +1,120 @@
+########################################################
+# Step 1: Establish the layers
+
+# Which layers are nested in each other?
+##Driver Info is wrapped in a method, which is in a hash, with an array that has hashs of trips. 
+# Which layers of data "have" within it a different layer?
+# Which layers are "next" to each other?
+
+########################################################
+# Step 2: Assign a data structure to each layer
+
+# Copy your list from above, and in this section
+# determine what data structure each layer should have
+
+########################################################
+# Step 3: Make the data structure!
+
+# Setup the entire data structure:
+# based off of the notes you have above, create the
+# and manually write in data presented in rides.csv
+# You should be copying and pasting the literal data
+# into this data structure, such as "DR0004"
+# and "3rd Feb 2016" and "RD0022"
+
+########################################################
+# Step 4: Total Driver's Earnings and Number of Rides
+
+# Use an iteration blocks to print the following answers:
+# - the number of rides each driver has given?
+# The number of rides each driver has given is:
+# Driver DR001: 3 rides
+# Driver DR002: 3 rides
+# Driver DR003: 2 rides
+# Driver DR004: 3 rides
+# - the total amount of money each driver has made?
+# The total earnings per driver is: 
+# Driver DR001: 85 dollars
+# Driver DR002: 75 dollars
+# Driver DR003: 55 dollars
+# Driver DR004: 35 dollars
+# - the average rating for each driver? The average rating per driver is
+# Driver DR001: 3.00 rating
+# Driver DR002: 3.00 rating
+# Driver DR003: 3.50 rating
+# Driver DR004: 4.67 rating
+# - Which driver made the most money? DR001 with: 85 dollars
+# - Which driver has the highest average rating? DR004 with 4.67
+
+
+def driver_info
+  drivers_info = {
+      DR001: [
+      {date: "2016-02-03", cost: 10, rider_id: "RD0003", rating: 3},
+      {date: "2016-02-03", cost: 30, rider_id: "RD0015", rating: 4},
+      {date: "2016-05-16", cost: 45, rider_id: "RD0003", rating: 2}
+      ],
+      DR002: [
+      {date: "2016-02-03", cost: 25, rider_id: "RD0073", rating: 5},
+      {date: "2016-02-04", cost: 15, rider_id: "RD0013", rating: 1},
+      {date: "2016-02-05", cost: 35, rider_id: "RD0066", rating: 3}
+      ],
+      DR003: [
+      {date: "2016-02-04", cost: 5, rider_id: "RD0066", rating: 5},
+      {date: "2016-02-05", cost: 50, rider_id: "RD0003", rating: 2}
+      ],
+      DR004: [
+      {date: "2016-02-03", cost: 5, rider_id: "RD0022", rating: 5},
+      {date: "2016-02-04", cost: 10, rider_id: "RD0022", rating: 4},
+      {date: "2016-02-05", cost: 20, rider_id: "RD0073", rating: 5}
+      ]
+  }
+  return drivers_info
+end
+
+puts "The number of rides each driver has given is:" 
+  driver_info.map do |driver, trips| 
+    puts "Driver #{driver}: #{trips.length} rides" 
+  end
+
+def ride_rating_totals(key)
+  total = {}
+  driver_info.each do |driver, value|
+  total_2 = []
+  value.each do |value2|
+    total_2 << value2[key]
+    end 
+  total[driver] = total_2.sum
+  end 
+  return total
+end 
+  
+def max_total(hash)
+  hash.each do |key,value|
+    if value == hash.values.max
+    return "#{key} with: #{value}"
+    end
+  end
+end
+
+puts "The total earnings per driver is: " 
+total_earnings = ride_rating_totals(:cost)
+total_earnings.each do |driver, value| 
+  puts "Driver #{driver}: #{value} dollars" 
+end 
+
+puts "The driver with most earnings is: #{max_total(total_earnings)} dollars"
+puts "The average rating per driver is "
+average_rating = ride_rating_totals(:rating)
+rating = {}
+average_rating.each do |driver, value| 
+    rating[driver] = ('%.02f' % (value.to_f / driver_info[driver].size))
+  end 
+  rating.each do |driver, value|
+    puts "Driver #{driver}: #{value} rating"
+  end 
+  rating.each do |driver, value|
+    if value == rating.values.max
+      puts "The driver with the highest average rating is #{driver} with #{value}"
+    end
+end
