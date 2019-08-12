@@ -75,8 +75,15 @@ ride_share = {
   ]
 }
 
-richest_driver = nil
-best_driver = nil
+def find_winner (hash, criteria)
+  totals = {}
+  hash.each do |key, value|
+    totals[key] = value[-1][criteria] 
+  end 
+  winning_amount = totals.values.max 
+  winner = totals.key(winning_amount)
+  return winner
+end 
 
 ride_share.each do |key, value|
   # Make cost array for calculating amount made by each driver
@@ -106,16 +113,8 @@ ride_share.each do |key, value|
 end
 
 # Determine which driver made the most money and which had the highest avg rating
-driver_moolah_totals = {}
-driver_rating_totals = {}
-ride_share.each do |key, value|
-  driver_moolah_totals[key] = value[-1][:total_moolah]
-  driver_rating_totals[key] = value[-1][:average_rating]
-end 
-richest_driver_income = driver_moolah_totals.values.max 
-best_driver_rating = driver_rating_totals.values.max 
-richest_driver = driver_moolah_totals.key(richest_driver_income)
-best_driver = driver_rating_totals.key(best_driver_rating) 
+richest_driver = find_winner(ride_share, :total_moolah)
+best_driver = find_winner(ride_share, :average_rating)
 
 # Output overall stats info
 puts "The driver who made the most money is Driver #{richest_driver.slice(5)}!"
