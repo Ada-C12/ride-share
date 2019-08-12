@@ -1,0 +1,104 @@
+########################################################
+# Step 1: Establish the layers
+# In this section of the file, as a series of comments,
+# create a list of the layers you identify.
+# Which layers are nested in each other?
+# Which layers of data "have" within it a different layer?
+# Which layers are "next" to each other?
+
+    # The drivers in the data set are a layer, which have 'nested' in them
+    # a set of information. They all have the same type of data, such as cost.
+    # Their cost, rating, date, etc are all 'next' to each other. The drivers
+    # themselves are also next to each other within a different layer as well, 
+    # which contains each trips information.
+########################################################
+# Step 2: Assign a data structure to each layer
+# Copy your list from above, and in this section
+# determine what data structure each layer should have
+    # In my code, I have created individual hashes for each trip the driver
+    # has taken. These hashes are nested within an array which belongs to each driver.
+    # Each driver also represents a key in a hash, where the array represents their value.
+
+########################################################
+# Step 3: Make the data structure!
+
+# Setup the entire data structure:
+# based off of the notes you have above, create the
+# and manually write in data presented in rides.csv
+
+drivers = 
+{
+    "DR0001": [
+        {"date": "3_feb_2016", "cost": "10", "rider_id": "RD0003", "rating": "3"},
+        {"date": "3_feb_2016", "cost": "30", "rider_id": "RD0015", "rating": "4"},
+        {"date": "5_feb_2016", "cost": "45", "rider_id": "RD0003", "rating": "2"}
+    ],
+    "DR0002": [
+        {"date": "3_feb_2016", "cost": "25", "rider_id": "RD0073", "rating": "5"},
+        {"date": "4_feb_2016", "cost": "15", "rider_id": "RD0013", "rating": "1"},
+        {"date": "5_feb_2016", "cost": "35", "rider_id": "RD0066", "rating": "3"}
+    ],
+    "DR0003": [
+        {"date": "4_feb_2016", "cost": "5", "rider_id": "RD0066", "rating": "5"},
+        {"date": "5_feb_2016", "cost": "50", "rider_id": "RD0003", "rating": "2"},
+    ],
+    "DR0004": [ 
+        { "date": "3_feb_2016", "cost": "5", "rider_id": "RD0022", "rating": "5" },
+        { "date": "4_feb_2016", "cost": "10", "rider_id": "RD0022", "rating": "4"},
+        { "date": "5_feb_2016", "cost": "20", "rider_id": "RD0073", "rating": "5"}
+    ]
+}
+
+########################################################
+# Step 4: Total Driver's Earnings and Number of Rides
+# Use an iteration blocks to print the following answers:
+
+#1. The number of rides each driver has given
+
+#Loop inside the drivers hash 
+#List each key along with the # of elements in its associated array.
+drivers.each do |driverName, rides|
+  puts "Driver #{driverName} gave #{rides.length} rides"
+end 
+
+#2. Find the total amount of money each driver has made
+
+#Loop inside drivers hash
+drivers.each do |driverName, trips|   
+  total = trips.inject(0) { |sum, trip| sum + trip[:cost].to_i}
+  puts "Driver #{driverName} has made $#{total}"  
+end 
+
+#3. The average rating for each driver
+
+drivers.each do |driverName, trips|
+  avg_rating = trips.inject(0) { |sum, trip| sum + trip[:rating].to_i } / trips.size 
+  puts "Driver #{driverName} had an average rating of #{avg_rating} stars"
+end
+
+# - Which driver made the most money?
+most_money = 0
+winner = ""
+
+drivers.each do |driverName, trips|
+ driver_total = trips.inject(0) { |sum, trip| sum + trip[:cost].to_i}
+ if driver_total > most_money 
+    most_money = driver_total
+    winner = driverName 
+    end
+end 
+puts "The driver who made the most money is #{winner}"
+
+
+# - Which driver has the highest average rating?
+highest_rating = 0
+rating_winner_driver = ""
+
+drivers.each do |driverName, trips|
+  avg_rating = trips.inject(0) { |sum, trip| sum + trip[:rating].to_i } / trips.size 
+  if avg_rating > highest_rating
+    highest_rating = avg_rating
+    rating_winner_driver = driverName 
+  end 
+end 
+puts "The driver with the highest average rating is #{rating_winner_driver}"
