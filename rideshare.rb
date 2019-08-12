@@ -29,18 +29,19 @@ highest_rated_driver = 0
 ride_share.each do |driver, ride|
   total_cost = ride.sum { |each_ride| each_ride[:cost] }
   total_rating = ride.sum { |each_ride| each_ride[:rating] }
+  average_rating = total_rating/ride.length.to_f 
   puts "DRIVER ##{ driver } 
   ** gave a total of #{ ride.length } rides **
   ** made a total of $#{ total_cost } **
-  ** had an average rating of #{ total_rating/ride.length.to_f } **"
+  ** had an average rating of #{ average_rating } **"
   
   if total_cost > max_cost
     max_cost = total_cost
     most_cost_driver = driver
   end 
   
-  if total_rating > highest_rating
-    highest_rating = total_rating
+  if average_rating > highest_rating
+    highest_rating = average_rating
     highest_rated_driver = driver
   end
 end
