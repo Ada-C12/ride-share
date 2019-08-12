@@ -43,32 +43,32 @@ def highest_keys(my_hash)
   highest_keys = my_hash.select do |key, value|
     value == max_value
   end
-  
+
   return highest_keys
 end
 
 def get_money_per_day(my_array)
   days = {}
-  
+
   my_array.each do |ride|
     day = ride[:date].to_sym
-    
+
     if days.has_key?(day)
       days[day] += ride[:cost]
     else
       days[day] = ride[:cost]
     end
   end
-  
+
   return days
 end
 
 def print_drivers_best_days(my_hash)
   my_hash.each do |driver, days|
     money_per_day = get_money_per_day(days)
-    
+
     best_days = highest_keys(money_per_day)
-    
+
     puts "Driver #{driver} made the most money on: #{best_days.keys.join(", ")}."
   end
 end
