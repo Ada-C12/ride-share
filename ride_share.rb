@@ -79,8 +79,8 @@ def main()
   
   highest_earning = 0
   highest_average_rating = 0
-  richest_driver = []
-  favorite_driver = []
+  richest_driver = nil
+  favorite_driver = nil
   
   drivers.each do |driver, trips|  
     # for each of driver, get an array of ratings for all their trips
