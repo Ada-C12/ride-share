@@ -81,7 +81,6 @@ puts "----Ride Share Program Summary----"
 
 puts "\n1. How many rides did each driver give?"
 
-# itereates through each key(driver) to determine the number of indices(rides) 
 hash.each do |driver, rides|
   puts "#{driver} gave #{rides.length} rides"
 end
@@ -92,7 +91,6 @@ puts "\n2. How much money did each driver make?"
 # a hash to store total income made by each driver
 total_income_hash = {}
 
-# iterates through each ride to add the value of :cost to the total
 hash.each do |driver, rides|
   total = 0
   rides.each do |ride|
@@ -111,7 +109,6 @@ puts "\n3. What was the average rating of each driver?"
 # a hash to store average rating of each driver
 average_rating_hash = {}
 
-# iterates through each ride to add the value of :rating to the total
 hash.each do |driver, rides|
   total = 0
   rides.each do |ride|
@@ -128,11 +125,9 @@ end
 #----------------------------------------------------------------------
 puts "\n4.Which driver made the most money?"
 
-# an array to store the drivers that made most income
 driver_most_income = []
 highest_income = 0
 
-# iterates through total_income_hash created earlier to compare the income of each driver to that of another to determine the highest income
 total_income_hash.each do |driver, income|
   if income > highest_income
     highest_income = income
@@ -149,11 +144,9 @@ puts driver_most_income.join(', ')
 #----------------------------------------------------------------------
 puts "\n5. Which driver had the highest average rating?"
 
-# an array to store the drivers with the highest rating
 driver_highest_rating = []
 highest_average_rating = 0
 
-# iterates through the average_rating_hash to compare the average rating to that of another to determine the highest value
 average_rating_hash.each do |driver, average_rating|
   if average_rating > highest_average_rating
     highest_average_rating = highest_average_rating
@@ -182,3 +175,4 @@ hash.each do |driver, rides|
   end
   puts "#{driver} made most money on #{highest_cost_day}"
 end
+
