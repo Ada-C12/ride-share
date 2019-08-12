@@ -75,13 +75,17 @@ ride_share = {
   ]
 }
 
-def find_winner (hash, criteria)
-  totals = {}
-  hash.each do |key, value|
-    totals[key] = value[-1][criteria]
+def find_driver_with_max (drivers, criteria)
+  winner = nil
+  winning_amount = 0
+  drivers.each do |driver, value|
+    amount = value[-1][criteria]
+    if amount > winning_amount
+      winning_amount = amount
+      winner = driver
+    end
+    # This doesn't catch ties!
   end
-  winning_amount = totals.values.max
-  winner = totals.key(winning_amount)
   return winner
 end
 
@@ -113,8 +117,8 @@ ride_share.each do |key, value|
 end
 
 # Determine which driver made the most money and which had the highest avg rating
-richest_driver = find_winner(ride_share, :total_moolah)
-best_driver = find_winner(ride_share, :average_rating)
+richest_driver = find_driver_with_max(ride_share, :total_moolah)
+best_driver = find_driver_with_max(ride_share, :average_rating)
 
 # Output overall stats info
 puts "The driver who made the most money is Driver #{richest_driver.slice(5)}!"
