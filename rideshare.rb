@@ -91,11 +91,11 @@ drivers_info.keys.each_with_index do |driver, index|
   total_money = 0
   rating_total = 0
 
-  drivers_info[driver].each do |index|
-    each_days_total = index[:cost]
+  drivers_info[driver].map do |ride|
+    each_days_total = ride[:cost]
     total_money += each_days_total
 
-    each_rides_rating = index[:rating]
+    each_rides_rating = ride[:rating]
     rating_total += each_rides_rating.to_f
 
     total_earned[driver] = total_money
