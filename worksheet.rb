@@ -89,30 +89,30 @@ def find_driver_with_max (drivers, criteria)
   return winner
 end
 
-ride_share.each do |key, value|
+ride_share.each do |driver, rides|
   # Make cost array for calculating amount made by each driver
-  cost_array = value.map {|hash| hash[:cost]}
+  cost_array = rides.map {|ride| ride[:cost]}
   # Make rating array for calculating average rating for each driver
-  rating_array = value.map {|hash| hash[:rating]}
-  average_rating = rating_array.sum / value.length.to_f
+  rating_array = rides.map {|ride| ride[:rating]}
+  average_rating = rating_array.sum / rides.length.to_f
   
   # Calculate most lucrative day (must combine dates first)
   combine_repeat_dates = Hash.new
-  value.each do |hash|
-    if combine_repeat_dates.has_key?(hash[:date])
-      combine_repeat_dates[hash[:date]] += (hash[:cost])
+  rides.each do |ride|
+    if combine_repeat_dates.has_key?(ride[:date])
+      combine_repeat_dates[ride[:date]] += (ride[:cost])
     else
-      combine_repeat_dates[hash[:date]] = (hash[:cost])
+      combine_repeat_dates[ride[:date]] = (ride[:cost])
     end
   end
   most_made_in_a_day = combine_repeat_dates.values.max
   most_lucrative_date = combine_repeat_dates.key(most_made_in_a_day)
   
   # Add new data to the array for each driver value
-  value << {total_moolah: cost_array.sum, average_rating: average_rating}
+  rides << {total_moolah: cost_array.sum, average_rating: average_rating}
   
   # Output info for each driver
-  puts "Driver #{key.slice(5)} has given #{value.length-1} rides and earned an average rating of #{average_rating}.
+  puts "Driver #{driver.slice(5)} has given #{rides.length-1} rides and earned an average rating of #{average_rating}.
   They made $#{cost_array.sum} in total. Their most lucrative day was #{most_lucrative_date} on which they made $#{most_made_in_a_day}."
 end
 
