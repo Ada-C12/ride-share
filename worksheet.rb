@@ -75,11 +75,13 @@ ride_share = {
   ]
 }
 
+new_data = Hash.new
+
 def find_driver_with_max (drivers, criteria)
   winner = nil
   winning_amount = 0
-  drivers.each do |driver, value|
-    amount = value[-1][criteria]
+  drivers.each do |driver, data|
+    amount = data[criteria]
     if amount > winning_amount
       winning_amount = amount
       winner = driver
@@ -108,17 +110,20 @@ ride_share.each do |driver, rides|
   most_made_in_a_day = combine_repeat_dates.values.max
   most_lucrative_date = combine_repeat_dates.key(most_made_in_a_day)
   
-  # Add new data to the array for each driver value
-  rides << {total_moolah: cost_array.sum, average_rating: average_rating}
+  # Store new data in a hash of hashes
+  new_data[driver] = {
+    total_moolah: cost_array.sum,
+    average_rating: average_rating
+  }
   
   # Output info for each driver
-  puts "Driver #{driver.slice(5)} has given #{rides.length-1} rides and earned an average rating of #{average_rating}.
+  puts "Driver #{driver.slice(5)} has given #{rides.length} rides and earned an average rating of #{average_rating}.
   They made $#{cost_array.sum} in total. Their most lucrative day was #{most_lucrative_date} on which they made $#{most_made_in_a_day}."
 end
 
 # Determine which driver made the most money and which had the highest avg rating
-richest_driver = find_driver_with_max(ride_share, :total_moolah)
-best_driver = find_driver_with_max(ride_share, :average_rating)
+richest_driver = find_driver_with_max(new_data, :total_moolah)
+best_driver = find_driver_with_max(new_data, :average_rating)
 
 # Output overall stats info
 puts "The driver who made the most money is Driver #{richest_driver.slice(5)}!"
