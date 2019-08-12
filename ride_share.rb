@@ -2,7 +2,7 @@ def print_number_rides(my_hash)
   my_hash.each do |driver, rides|
     total_rides = rides.length
     print "#{driver} did #{total_rides} "
-    
+
     if total_rides == 1
       puts "ride."
     else
@@ -13,33 +13,33 @@ end
 
 def get_drivers_earnings(my_hash)
   drivers_earnings = {}
-  
+
   my_hash.each do |driver, rides|
     earnings = rides.sum do |ride|
       ride[:cost]
     end
     drivers_earnings[driver] = earnings
   end
-  
+
   return drivers_earnings
 end
 
 def get_drivers_avg_ratings(my_hash)
   avg_ratings = {}
-  
+
   my_hash.each do |driver, rides|
     ratings = rides.map do |ride|
       ride[:rating]
     end
     avg_ratings[driver] = ratings.sum / ratings.length.to_f
   end
-  
+
   return avg_ratings
 end
 
 def highest_keys(my_hash)
   max_value = my_hash.values.max
-  
+
   highest_keys = my_hash.select do |key, value|
     value == max_value
   end
