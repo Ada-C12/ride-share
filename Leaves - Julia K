@@ -1,0 +1,170 @@
+rides_by_driver = 
+[
+  {
+    driver_id: "DR0001",  
+    ride: 1,  
+    date: "3rd Feb 2016", 
+    cost: 10, 
+    rider_id: "RD0003", 
+    rating: 3 
+  }, 
+  {
+    driver_id: "DR0001", 
+    ride: 2, 
+    date: "3rd Feb 2016", 
+    cost: 30, 
+    rider_id: "RD0015", 
+    rating: 4
+  }, 
+  {
+    driver_id: "DR0001", 
+    ride: 3, 
+    date: "5th Feb 2016", 
+    cost: 20, 
+    rider_id: "RD0003", 
+    rating: 2
+  }, 
+  {
+    driver_id: "DR0002", 
+    ride: 1, 
+    date: "3rd Feb 2016", 
+    cost: 25, 
+    rider_id: "RD0073", 
+    rating: 5
+  }, 
+  {
+    driver_id: "DR0002", 
+    ride: 2, 
+    date: "4th Feb 2016", 
+    cost: 15, 
+    rider_id: "RD0013", 
+    rating: 1
+  }, 
+  { 
+    driver_id: "DR0002", 
+    ride: 3, 
+    date: "5th Feb 2016", 
+    cost: 35, 
+    rider_id: "RD0066", 
+    rating: 3
+  }, 
+  {
+    driver_id: "DR0003", 
+    ride: 1, 
+    date: "4th Feb 2016", 
+    cost: 5, 
+    rider_id: "RD0066", 
+    rating: 5
+  },
+  {
+    driver_id: "DR0003", 
+    ride: 2, 
+    date: "5th Feb 2016", 
+    cost: 50, 
+    rider_id: "RD0003", 
+    rating: 2
+  },   
+  {
+    driver_id: "DR0004",  
+    ride: 1, 
+    date: "3rd Feb 2016", 
+    cost: 5, 
+    rider_id: "RD0022", 
+    rating: 5
+  }, 
+  {
+    driver_id: "DR0004", 
+    ride: 2, 
+    date: "4th Feb 2016", 
+    cost: 10, 
+    rider_id: "RD0022", 
+    rating: 4 
+  }, 
+  {
+    driver_id: "DR0004", 
+    ride: 3, 
+    date: "5th Feb 2016",	
+    cost: 20, 
+    rider_id: "RD0073", 
+    rating: 5
+  }
+]
+
+########################################################
+# Step 4: Total Driver's Earnings and Number of Rides
+
+# Specification: Use an iteration blocks to print the following 
+# answers:
+# - the number of rides each driver has given
+
+# Programmer note: Creating an array to store driver_ids. The number 
+# of times each driver appears in the "drivers" array is equal to 
+# how may rides they have given
+
+puts "\n"
+
+drivers = []
+
+rides_by_driver.each do |ride|
+  drivers << ride.values[0]
+end 
+
+# Determining how many times each driver_id appears in the array. 
+
+counts = Hash.new(0)
+drivers.each { |driver| counts[driver] += 1 }
+
+counts.each do |driver, rides|
+  puts "Driver #{driver} gave #{rides} rides"
+end
+
+puts "\n"
+# Specification: - the total amount of money each driver has made 
+
+drivers_with_earnings = {}
+
+rides_by_driver.each do |trip|
+  if drivers_with_earnings[trip[:driver_id]]
+    drivers_with_earnings[trip[:driver_id]] += trip[:cost]
+  else
+    drivers_with_earnings[trip[:driver_id]] = trip[:cost]
+  end
+end
+
+drivers_with_earnings.each do |driver, earnings|
+  puts "Driver #{driver} earned a total of $#{earnings}."
+end
+
+# Specification:- the average rating for each driver
+
+puts "\n"
+
+drivers_with_ratings = {}
+rides_by_driver.each do |trip|
+  if drivers_with_ratings[trip[:driver_id]]
+    drivers_with_ratings[trip[:driver_id]]<< trip[:rating]
+  else
+    drivers_with_ratings[trip[:driver_id]] = [trip[:rating]]
+  end
+end
+
+drivers_with_avg_rating = {}
+drivers_with_avg_rating = drivers_with_ratings.each do |driver, ratings|
+  drivers_with_ratings[driver] = "#{ratings.sum.to_f / ratings.count}"
+end
+
+drivers_with_avg_rating.each do |driver, rating|
+  puts "Driver #{driver}'s average rating is #{rating}."
+end
+
+# Specification: - Which driver made the most money?
+puts "\n"
+most_money_driver = drivers_with_earnings.max_by {|driver, earnings| earnings }
+
+puts "The driver who earned the most was #{most_money_driver[0]} ($#{most_money_driver[1]})."
+
+# Specification: - Which driver has the highest average rating?
+puts "\n"
+max_avg_rating_driver = drivers_with_avg_rating.max_by {|driver, rating| rating}
+
+puts "The driver with the highest average rating was #{max_avg_rating_driver[0]} (#{max_avg_rating_driver[1]}) "
