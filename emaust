@@ -1,0 +1,101 @@
+drive_history = {
+  DR0001: [
+    {cost: 10, rating: 3, id_number: "RD0003", date: "3rd Feb 2016"},
+    {cost: 30, rating: 4, id_number: "RD0015", date: "3rd Feb 2016"}, 
+    {cost: 45, rating: 2, id_number: "RD0003", date: "5th Feb 2016"}
+  ],
+  DR0002: [
+    {cost: 25, rating: 5, id_number: "RD0073", date: "3rd Feb 2016"},
+    {cost: 15, rating: 1, id_number: "RD0013", date: "4th Feb 2016"}, 
+    {cost: 35, rating: 3, id_number: "RD0066", date: "5th Feb 2016"}
+  ],
+  DR0003: [
+    {cost: 05, rating: 5, id_number: "RD0066", date: "4th Feb 2016"},
+    {cost: 50, rating: 2, id_number: "RD0003", date: "5th Feb 2016"}
+  ],
+  DR0004: [
+    {cost: 05, rating: 5, id_number: "RD0022", date: "3rd Feb 2016"},
+    {cost: 10, rating: 4, id_number: "RD0022", date: "4th Feb 2016"}, 
+    {cost: 20, rating: 5, id_number: "RD0073", date: "5th Feb 2016"}
+  ]
+}
+
+puts " *** Total Rides Per Driver:"
+rides_completed = []
+drive_history.each do |driver, key|
+  puts "For driver #{driver}, the number of rides given was: #{key.length}"
+  drive_number = key.length
+  rides_completed << drive_number
+end
+
+
+def profit_per_driver(drive_history, driver)
+  cost_array = drive_history[driver].map do |ride|
+    cost_each = ride[:cost]
+  end
+end
+
+
+prof_one = profit_per_driver(drive_history,:DR0001).sum
+prof_two = profit_per_driver(drive_history,:DR0002).sum
+prof_three = profit_per_driver(drive_history,:DR0003).sum
+prof_four = profit_per_driver(drive_history,:DR0004).sum
+
+
+puts " *** Total Earnings:"
+puts "Driver DR0001 made a total of $#{prof_one}."
+puts "Driver DR0002 made a total of $#{prof_two}."
+puts "Driver DR0003 made a total of $#{prof_three}."
+puts "Driver DR0004 made a total of $#{prof_four}."
+
+
+profit_array = [prof_one, prof_two, prof_three, prof_four]
+max = profit_array.max
+
+puts " *** Max Profit:"
+if max == prof_one
+  puts "The maximum was earned by driver DR0001 with a total profit of $#{max}."
+elsif max == prof_two
+  puts "The maximum was earned by driver DR0002 with a total profit of $#{max}."
+elsif max == prof_three
+  puts "The maximum was earned by driver DR0003 with a total profit of $#{max}."
+elsif max == prof_four
+  puts "The maximum was earned by driver DR0004 with a total profit of $#{max}."
+end
+
+
+# method for average rating per driver 
+def average_driver_rating(drive_history, driver, rides_completed)
+  rating_array = drive_history[driver].map do |ride|
+    rating_each = ride[:rating]
+  end
+  rating = rating_array.sum.to_f
+  average_rating = rating / rides_completed
+end
+
+# calling method for driver average
+average_one = average_driver_rating(drive_history,:DR0001, rides_completed[0])
+average_two = average_driver_rating(drive_history,:DR0002, rides_completed[1])
+average_three = average_driver_rating(drive_history,:DR0003, rides_completed[2])
+average_four = average_driver_rating(drive_history,:DR0004, rides_completed[3])
+
+puts " *** Average Driver Rating:"
+puts "Driver DR0001 had an average rating of #{average_one}."
+puts "Driver DR0002 had an average rating of #{average_two}."
+puts "Driver DR0003 had an average rating of #{average_three}."
+puts "Driver DR0004 had an average rating of #{average_four}."
+
+# conditional statement - print highest average
+averages_array = [average_one, average_two, average_three, average_four]
+max_average = averages_array.max
+
+puts " *** Highest Driver Rating: "
+if max_average == average_one
+  puts "Driver DR0001 had highest average rating with an average of #{average_one}."
+elsif max_average == average_two
+  puts "Driver DR0002 had highest average rating with an average of #{average_two}."
+elsif max_average == average_three
+  puts "Driver DR0003 had highest average rating with an average of #{average_three}."
+elsif max_average == average_four
+  puts "Driver DR0004 had highest average rating with an average of #{average_four}."
+end
